@@ -19,12 +19,12 @@ jobs:
       - name: Compile WASM
         run: |
           cd lib/src
-          emcc astro.c ../sweph/src/swedate.c ../sweph/src/swehouse.c ../sweph/src/swejpl.c ../sweph/src/swemmoon.c ../sweph/src/swemplan.c ../sweph/src/sweph.c ../sweph/src/swephlib.c ../sweph/src/swecl.c ../sweph/src/swehel.c -o ../../js/astro-embedded.js -I../sweph/src -O3 -s WASM=1 -s EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]' -s EXPORTED_FUNCTIONS='["_malloc", "_free"]' -s ALLOW_MEMORY_GROWTH=1 -s SINGLE_FILE=1 --preload-file eph
+          emcc astro.c ../sweph/src/swedate.c ../sweph/src/swehouse.c ../sweph/src/swejpl.c ../sweph/src/swemmoon.c ../sweph/src/swemplan.c ../sweph/src/sweph.c ../sweph/src/swephlib.c ../sweph/src/swecl.c ../sweph/src/swehel.c -o ../../js/astro-embedded.js -I../sweph/src -O3 -s WASM=1 -s EXPORTED_RUNTIME_METHODS='["ccall", "cwrap", "UTF8ToString"]' -s EXPORTED_FUNCTIONS='["_malloc", "_free"]' -s ALLOW_MEMORY_GROWTH=1 -s SINGLE_FILE=1 --embed-file eph
           
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add js/astro-embedded.js
-          git commit -m "Compile WASM with Eros and Tara" || echo "No changes"
+          git commit -m "Compile WASM with Eros and Tara (embedded)" || echo "No changes"
           git push
