@@ -16,12 +16,11 @@ jobs:
       - name: Setup Emscripten
         uses: mymindstorm/setup-emsdk@v14
 
-            - name: Compile WASM
+      - name: Compile WASM
         run: |
           cd lib/src
           rm -f ../sweph/src/swetest.c
           emcc astro.c ../sweph/src/swe*.c -o ../../js/astro-embedded.js -I../sweph/src -O3 -s WASM=1 -s EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]' -s EXPORTED_FUNCTIONS='["_malloc", "_free"]' -s ALLOW_MEMORY_GROWTH=1 -s SINGLE_FILE=1 --preload-file eph
-        run: npm run build
           
       - name: Commit and push changes
         run: |
